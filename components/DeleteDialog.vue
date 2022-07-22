@@ -7,12 +7,12 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
+          color="error"
           dark
           v-bind="attrs"
           v-on="on"
         >
-          delete
+          削除
         </v-btn>
       </template>
       <v-card>

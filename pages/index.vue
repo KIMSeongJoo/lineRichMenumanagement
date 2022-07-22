@@ -1,45 +1,31 @@
 <template>
   <v-row align="center">
-    <v-card
-      elevation="1"
-    >
-      <p> 環境選択 </p>
-      <v-btn
-        color="accent"
-        elevation="12"
-        rounded
-        @click="setupEnvironmentInfo('dev')"
-      >開発環境</v-btn>
-      <v-btn
-        color="accent"
-        elevation="12"
-        rounded
-        @click="setupEnvironmentInfo('prod')"
-      > 本番環境 </v-btn>
-    </v-card>
-    <div v-if="display === false">
-      <v-progress-circular
-        :size="50"
-        color="primary"
-        indeterminate
-      />
-    </div>
-    <div v-if="display">
-      <LineMain :apiKey="apiKey"/>
-    </div>
+    <h3>line lich menu management page</h3>
+    <v-tabs>
+      <v-tab @click="setupEnvironmentInfo('dev')">開発環境</v-tab>
+      <v-tab @click="setupEnvironmentInfo('prod')">本番環境</v-tab>
+      <v-tab>新規作成</v-tab>
+    </v-tabs>
+    <LineMain :apiKey="apiKey" v-if="listDisplay"/>
+    <Create/>
   </v-row>
 </template>
 
 <script>
 import LineMain from '../components/LineMain'
-export default{
+import Create from '../components/Create'
+export default {
   name: 'IndexPage',
-  components : { LineMain },
+  components : { LineMain, Create },
   data() {
     return {
-      display : false,
       apiKey : '',
+      listDisplay : false,
+      createPage : false,
     }
+  },
+  mounted() {
+    this.apiKey = process.env.API_KEY_DEV
   },
   methods: {
     setupEnvironmentInfo(name) {
@@ -48,7 +34,11 @@ export default{
       } else {
         this.apiKey = process.env.API_KEY_PROD
       }
-      this.display = true
+      this.listDisplay = true
+    },
+
+    showCreatePage() {
+
     }
   }
 }

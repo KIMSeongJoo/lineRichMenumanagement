@@ -36,7 +36,6 @@
           <v-btn
             color="secondary"
             elevation="12"
-            rounded
             @click="getContents(item.richMenuId, idx)"
           > イメージ表示 </v-btn>
           <div v-if="imageList.length > 0">
@@ -62,7 +61,7 @@ import DialogComponent from "~/components/Dialog";
 export default {
   name: "LineMain",
   components: {DialogComponent},
-  // eslint-disable-next-line vue/require-prop-types
+  // eslint-disable-next-line vue/require-prop-types,vue/prop-name-casing
   props: ['apiKey'],
   data() {
     return {

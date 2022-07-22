@@ -10,7 +10,7 @@
             color="primary"
             v-bind="attrs"
             v-on="on"
-          > View </v-btn>
+          > Json </v-btn>
         </template>
         <template #default="dialog">
           <v-card>

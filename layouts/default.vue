@@ -1,12 +1,9 @@
 <template>
   <v-app dark>
-    <v-app-bar
-      elevation="4"
-    > Richm menu Management System</v-app-bar>
     <v-main>
-      <v-container align="center">
-        <Nuxt />
-      </v-container>
+    <v-container>
+      <Nuxt />
+    </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }} Made By Seongjoo KIM</span>

@@ -1,23 +1,13 @@
 <template>
   <v-row justify="space-around">
     <v-col cols="auto">
-      <v-dialog
-        transition="dialog-bottom-transition"
-        max-width="600"
-      >
+      <v-dialog transition="dialog-bottom-transition" max-width="600">
         <template #activator="{ on, attrs }">
-          <v-btn
-            color="primary"
-            v-bind="attrs"
-            v-on="on"
-          > Json </v-btn>
+          <v-btn color="primary" v-bind="attrs" v-on="on"> Json </v-btn>
         </template>
         <template #default="dialog">
           <v-card>
-            <v-toolbar
-              color="primary"
-              dark
-            > JSON </v-toolbar>
+            <v-toolbar color="primary" dark> JSON </v-toolbar>
             <v-card-text>
               <div class="pa-12">
                 <pre>
@@ -26,10 +16,7 @@
               </div>
             </v-card-text>
             <v-card-actions class="justify-end">
-              <v-btn
-                text
-                @click="dialog.value = false"
-              >Close</v-btn>
+              <v-btn text @click="dialog.value = false">Close</v-btn>
             </v-card-actions>
           </v-card>
         </template>
@@ -40,12 +27,10 @@
 
 <script>
 export default {
-  name: "DialogComponent",
+  name: 'DialogComponent',
   // eslint-disable-next-line vue/require-prop-types
-  props : ['jsonDetail']
+  props: ['jsonDetail'],
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

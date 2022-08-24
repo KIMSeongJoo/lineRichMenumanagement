@@ -1,9 +1,12 @@
 <template>
   <v-app dark>
+    <v-app-bar dense max-height="40">
+      <v-app-bar-title>LINE開発サポート</v-app-bar-title>
+    </v-app-bar>
     <v-main>
-    <v-container>
-      <Nuxt />
-    </v-container>
+      <v-container>
+        <Nuxt />
+      </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }} Made By Seongjoo KIM</span>

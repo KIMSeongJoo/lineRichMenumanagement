@@ -39,27 +39,28 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
+    'nuxt-sweetalert2',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     proxy: true,
-    credentials: false
+    credentials: false,
   },
 
   proxy: {
     '/v2': {
-      target : 'https://api.line.me',
+      target: 'https://api.line.me',
       chagneOrigin: false,
-      prependPath: false
+      prependPath: false,
     },
     '/api': {
-      target : 'https://api-data.line.me',
-      pathRewrite: { '^/api/': '/'},
+      target: 'https://api-data.line.me',
+      pathRewrite: { '^/api/': '/' },
       chagneOrigin: false,
-      prependPath: false
-    }
+      prependPath: false,
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -84,8 +85,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   env: {
-    ApikeyDev : process.env.API_KEY_DEV,
-    ApikeyProd : process.env.API_KEY_PROD
+    ApikeyDev: process.env.API_KEY_DEV,
+    ApikeyProd: process.env.API_KEY_PROD,
   },
-
 }

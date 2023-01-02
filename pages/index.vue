@@ -9,8 +9,8 @@
     </v-tabs>
     <LineMain v-if="listDisplay" :api-key="apiKey" />
     <Create v-if="createPage" />
-    <SendMessage v-if="sendMessagePage"/>
-    <UserRichmeu v-if="userSetUp"/>
+    <SendMessage v-if="sendMessagePage" />
+    <UserRichmeu v-if="userSetUp" />
   </v-row>
 </template>
 
@@ -32,6 +32,11 @@ export default {
       userSetUp: false,
     }
   },
+  computed: {
+    envInfo() {
+      return this.$store.state.lines.envInfo
+    }
+  },
   mounted() {
     this.apiKey = process.env.API_KEY_DEV
     this.listDisplay = true
@@ -39,8 +44,18 @@ export default {
   methods: {
     setupEnvironmentInfo(name) {
       if (name === 'dev') {
+        const payload = {
+          envName : "開発環境",
+          dns : process.env.API_KEY_DEV
+        }
+        this.$store.commit('lines/setEnv', payload)
         this.apiKey = process.env.API_KEY_DEV
       } else {
+        const payload = {
+          envName : "本番環境",
+          dns : process.env.API_KEY_DEV
+        }
+        this.$store.commit('lines/setEnv', payload)
         this.apiKey = process.env.API_KEY_PROD
       }
       this.listDisplay = true

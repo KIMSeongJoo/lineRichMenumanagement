@@ -1,49 +1,51 @@
 <template>
-  <v-simple-table>
-    <template #default>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th class="text-left">Richmenu ID</th>
-          <th>Name</th>
-          <th>Json表示</th>
-          <th>イメージ</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, idx) in richmenuList" :key="idx">
-          <td>{{ idx + 1 }}</td>
-          <td>{{ item.richMenuId }}</td>
-          <td>{{ item.name }}</td>
-          <td><DialogComponent :json-detail="item" /></td>
-          <td>
-            <v-btn
-              color="secondary"
-              elevation="12"
-              @click="getContents(item.richMenuId, idx)"
-            >
-              イメージ表示
-            </v-btn>
-            <div v-if="imageList.length > 0">
-              <div v-for="val in imageList" :key="val.id">
-                <span v-if="val.id === idx">
-                  <img :src="val.url" alt="イメージ" style="width: 200px" />
-                </span>
+  <v-col cols="12">
+    <v-simple-table>
+      <template #default>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th class="text-left">Richmenu ID</th>
+            <th>Name</th>
+            <th>Json表示</th>
+            <th>イメージ</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, idx) in richmenuList" :key="idx">
+            <td>{{ idx + 1 }}</td>
+            <td>{{ item.richMenuId }}</td>
+            <td>{{ item.name }}</td>
+            <td><DialogComponent :json-detail="item" /></td>
+            <td>
+              <v-btn
+                color="secondary"
+                elevation="12"
+                @click="getContents(item.richMenuId, idx)"
+              >
+                イメージ表示
+              </v-btn>
+              <div v-if="imageList.length > 0">
+                <div v-for="val in imageList" :key="val.id">
+                  <span v-if="val.id === idx">
+                    <img :src="val.url" alt="イメージ" style="width: 200px" />
+                  </span>
+                </div>
               </div>
-            </div>
-          </td>
-          <td>
-            <DeleteDialog
-              :item-id="item.richMenuId"
-              :index-id="idx"
-              :api-key="apiKey"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+            </td>
+            <td>
+              <DeleteDialog
+                :item-id="item.richMenuId"
+                :index-id="idx"
+                :api-key="apiKey"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </v-col>
 </template>
 
 <script>

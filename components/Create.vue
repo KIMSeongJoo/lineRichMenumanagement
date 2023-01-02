@@ -1,6 +1,7 @@
 <template>
   <v-row text-center>
     <v-col cols="12">
+      <!-- textarea -->
       <v-col cols="12">
         <label><h3>本文</h3></label>
         <v-textarea
@@ -10,6 +11,8 @@
           auto-grow
         ></v-textarea>
       </v-col>
+
+      <!-- image select area -->
       <v-col cols="12">
         <label><h3>リッチメニューイメージ</h3></label>
         <v-file-input
@@ -17,6 +20,8 @@
           truncate-length="15"
         ></v-file-input>
       </v-col>
+
+      <!-- create env select -->
       <v-col cols="12">
         <label><h3>作成環境設定</h3></label>
         <v-select
@@ -28,6 +33,16 @@
           solo
         ></v-select>
       </v-col>
+
+      <!-- default richmenu checkbox-->
+      <v-col cols="12">
+        <v-checkbox
+          v-model="defaultRichmenu"
+          :label="`デフォルトリッチーメニューとして設定`"
+        ></v-checkbox>
+      </v-col>
+
+      <!-- send button -->
       <v-col cols="12">
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -61,6 +76,7 @@ export default {
       requestBody: null,
       requestImage: null,
       envSelected: null,
+      defaultRichmenu: false,
       envList: [
         {
           envName: '開発環境',
@@ -93,25 +109,47 @@ export default {
           const newId = res.data.richMenuId
           const uploadFile = this.requestImage
           headers['Content-Type'] = uploadFile.type
-
+          // link image
           this.$axios
             .post('/api/v2/bot/richmenu/' + newId + '/content', uploadFile, {
               headers,
             })
-            .then((res) => {})
-          Swal.fire({
-            icon: 'success',
-            title: '作成完了',
-            text:
-              'リッチメニュー登録、イメージの設定に成功しました。 \n id : ' +
-              newId,
-          }).catch(({ res }) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'イメージアップロード処理でエラーが発生しました。',
-              text: res,
+            .then((res) => {
+              if( this.defaultRichmenu === true) {
+                this.$axios.post('v2/bot/user/all/richmenu/' + newId, '', {headers})
+                  .then((res) => {
+                    Swal.fire({
+                      icon: 'success',
+                      title: '作成完了',
+                      text:
+                        'リッチメニュー登録、イメージの設定、ディフォルト設定に成功しました。 \n id : ' +
+                        newId,
+                    })
+                  })
+                  .catch(({e}) => {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'ディフォルトリッチーメニュー設定に失敗しました。',
+                      text: res,
+                    })
+                  })
+              } else {
+                Swal.fire({
+                  icon: 'success',
+                  title: '作成完了',
+                  text:
+                    'リッチメニュー登録、イメージの設定に成功しました。 \n id : ' +
+                    newId,
+                })
+              }
             })
-          })
+            .catch(({ res }) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'イメージアップロード処理でエラーが発生しました。',
+                text: res,
+              })
+            })
         })
         .catch(({ e }) => {
           if (e.response) {

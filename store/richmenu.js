@@ -1,20 +1,32 @@
 export const state = () => ({
   list: [],
   imageList: [],
+  defaultRichmenu : ''
 })
 
 export const mutations = {
   setup(state, itemList) {
-    state.list = itemList
+    const result = []
+    itemList.forEach(function(value){
+      value.image = false;
+      result.push(value)
+    });
+    state.list = result
   },
 
   setupImage(state, urlinfo) {
     state.imageList.push(urlinfo)
   },
-  add(state, item) {
-    state.list.push(item)
+  updateListImage(state, idx) {
+    state.list[idx].image = true
   },
   remove(state, item) {
     state.list.splice(item, 1)
   },
+
+  setupDefaultRichmenu(state, item) {
+    console.log(item)
+    state.defaultRichmenu = item
+    console.log(state.defaultRichmenu)
+  }
 }

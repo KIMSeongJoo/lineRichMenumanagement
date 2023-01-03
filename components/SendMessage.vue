@@ -32,6 +32,11 @@
 <script>
 export default {
   name: 'SendMessage',
+  data() {
+    return {
+      targetUser: ''
+    }
+  },
 
   computed: {
     envInfo() {

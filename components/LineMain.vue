@@ -15,11 +15,25 @@
         <tbody>
           <tr v-for="(item, idx) in richmenuList" :key="idx">
             <td>{{ idx + 1 }}</td>
-            <td>{{ item.richMenuId }}</td>
+            <td>
+              <label v-if="item.richMenuId === defaultRichmenu">
+                <v-tooltip bottom>
+                  <template #activator="{ on, attrs }">
+                    <v-icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >mdi-bullseye-arrow</v-icon>
+                  </template>
+                  <span>ディフォルトリッチーメニュー</span>
+                </v-tooltip>
+              </label>
+              {{ item.richMenuId }}
+            </td>
             <td>{{ item.name }}</td>
             <td><DialogComponent :json-detail="item" /></td>
             <td>
               <v-btn
+                v-if="item.image === false"
                 color="secondary"
                 elevation="12"
                 @click="getContents(item.richMenuId, idx)"
@@ -64,9 +78,13 @@ export default {
     imageList() {
       return this.$store.state.richmenu.imageList
     },
+    defaultRichmenu() {
+      return this.$store.state.richmenu.defaultRichmenu
+    }
   },
   watch: {
     apiKey(after, before) {
+      // get list
       const headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + before,
@@ -74,14 +92,33 @@ export default {
       this.$axios
         .get('/v2/bot/richmenu/list', { headers })
         .then((res) => {
-          console.log('new item list!')
           this.$store.commit('richmenu/setup', res.data.richmenus)
           this.imageList = []
         })
-        .catch()
+        .catch(e => {
+          Swal.fire({
+            icon: 'error',
+            title: 'エラーが発生しました。',
+            text: 'rich menu list 取得失敗',
+          })
+        })
+      // get default rich menu
+      this.$axios
+        .get('/v2/bot/user/all/richmenu', { headers })
+        .then((res) => {
+          this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
+        })
+        .catch(e => {
+          Swal.fire({
+            icon: 'error',
+            title: 'エラーが発生しました。',
+            text: 'ディフォルトリッチーメニュー取得失敗',
+          })
+        })
     },
   },
   mounted() {
+    // get list
     const headers = {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + this.apiKey,
@@ -91,14 +128,36 @@ export default {
       .then((res) => {
         this.$store.commit('richmenu/setup', res.data.richmenus)
       })
-      .catch()
+      .catch(e => {
+        Swal.fire({
+          icon: 'error',
+          title: 'エラーが発生しました。',
+          text: 'rich menu list 取得失敗',
+        })
+      })
+
+    // get default rich menu
+    this.$axios
+      .get('/v2/bot/user/all/richmenu', { headers })
+      .then((res) => {
+        this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
+      })
+      .catch(e => {
+        Swal.fire({
+          icon: 'error',
+          title: 'エラーが発生しました。',
+          text: 'ディフォルトリッチーメニュー取得失敗',
+        })
+      })
   },
   methods: {
     getContents(id, idx) {
-      // イメージは１個限定
-      if (this.imageList.length > 0) {
+      // check image list about idx info
+      const obj = this.imageList.find(o => o.id === idx);
+      if (obj !== undefined) {
         return
       }
+      // header set up
       const headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + this.apiKey,
@@ -109,14 +168,17 @@ export default {
           responseType: 'arraybuffer',
         })
         .then((res) => {
-          // blobオブジェクトにしたい場合
+          // modified blob object
           const blob = new Blob([res.data], { type: 'image/png' })
           const url = window.URL || window.webkitURL
           const params = {
             id: idx,
             url: url.createObjectURL(blob),
           }
+          // save image data
           this.$store.commit('richmenu/setupImage', params)
+          // update item list image info false to true
+          this.$store.commit('richmenu/updateListImage', idx)
         })
         .catch((e) => {
           if (e.response) {

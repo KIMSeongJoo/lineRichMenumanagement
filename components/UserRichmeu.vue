@@ -2,20 +2,20 @@
   <v-row>
     <!-- user id field -->
     <v-col cols="12">
-      <label><h3>送信ユーザ</h3></label>
+      <label class="text-h4">送信ユーザ</label>
       <v-text-field
         v-model="targetUser"
-        :counter="max"
+        :counter="64"
         :rules="rules"
         label="LINE UID"
       ></v-text-field>
     </v-col>
     <!-- rich menu id field -->
     <v-col cols="12">
-      <label><h3>リッチーメニューID</h3></label>
+      <label class="text-h4">リッチーメニューID</label>
       <v-text-field
         v-model="richmenuId"
-        :counter="max"
+        :counter="64"
         :rules="rules"
         label="RICH MENU ID"
       ></v-text-field>
@@ -41,6 +41,7 @@ export default {
   name: 'UserRichmeu',
   data() {
     return {
+      rules: [v => v.length <= 64 || 'Max 1024 characters'],
       targetUser: null,
       richmenuId: null,
     }
@@ -61,7 +62,7 @@ export default {
         '/v2/bot/user/' + this.targetUser + '/richmenu/' + this.richmenuId
       this.$axios
         .post(url, '', { headers })
-        .then((res) => {
+        .then(() => {
           Swal.fire({
             icon: 'success',
             title: '作成完了',

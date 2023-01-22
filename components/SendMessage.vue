@@ -2,7 +2,7 @@
   <v-row>
     <!-- main message area -->
     <v-col cols="12">
-      <label lg>本文</label>
+      <label class="text-h4">本文</label>
       <br />
       <v-textarea
         name="message-body"
@@ -14,10 +14,10 @@
     </v-col>
     <!-- target user info area -->
     <v-col cols="12">
-      <label><h3>送信ユーザ</h3></label>
+      <label class="text-h4">送信ユーザ</label>
       <v-text-field
         v-model="targetUser"
-        :counter="max"
+        :counter="64"
         :rules="rules"
         label="LINE UID"
       ></v-text-field>
@@ -46,12 +46,13 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import SweetAlert from 'sweetalert2'
 
 export default {
   name: 'SendMessage',
   data() {
     return {
+      rules: [v => v.length <= 1024 || 'Max 1024 characters'],
       targetUser: '',
       message: null,
     }
@@ -75,15 +76,15 @@ export default {
         .post('/api/v2/bot/message/push', reqBody, {
           headers,
         })
-        .then((res) => {
-          Swal.fire({
+        .then(() => {
+          SweetAlert.fire({
             icon: 'success',
             title: '作成完了',
             text: 'メッセージ送信成功',
           })
         })
         .catch((e) => {
-          Swal.fire({
+          SweetAlert.fire({
             icon: 'error',
             title: 'メッセージ送信に失敗しました。',
             text: e,

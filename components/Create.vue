@@ -3,7 +3,7 @@
     <v-col cols="12">
       <!-- textarea -->
       <v-col cols="12">
-        <label><h3>本文</h3></label>
+        <label class="text-h4">本文</label>
         <v-textarea
           v-model="requestBody"
           filled
@@ -14,7 +14,7 @@
 
       <!-- image select area -->
       <v-col cols="12">
-        <label><h3>リッチメニューイメージ</h3></label>
+        <label class="text-h4">リッチメニューイメージ</label>
         <v-file-input
           v-model="requestImage"
           truncate-length="15"
@@ -99,7 +99,7 @@ export default {
               if (this.defaultRichmenu === true) {
                 this.$axios
                   .post('v2/bot/user/all/richmenu/' + newId, '', { headers })
-                  .then((res) => {
+                  .then(() => {
                     Swal.fire({
                       icon: 'success',
                       title: '作成完了',
@@ -112,7 +112,7 @@ export default {
                     Swal.fire({
                       icon: 'error',
                       title: 'ディフォルトリッチーメニュー設定に失敗しました。',
-                      text: res,
+                      text: e,
                     })
                   })
               } else {

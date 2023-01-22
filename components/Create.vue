@@ -63,16 +63,6 @@ export default {
       requestBody: null,
       requestImage: null,
       defaultRichmenu: false,
-      envList: [
-        {
-          envName: '開発環境',
-          apiKey: process.env.API_KEY_DEV,
-        },
-        {
-          envName: '本番環境',
-          apiKey: process.env.API_KEY_PROD,
-        },
-      ],
     }
   },
   computed: {

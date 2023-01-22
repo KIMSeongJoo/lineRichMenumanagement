@@ -24,17 +24,36 @@
     </v-col>
     <!-- send button area -->
     <v-col cols="12">
-      <v-btn elevation="2" large depressed color="primary">送信</v-btn>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            class="mx-2"
+            fab
+            dark
+            large
+            color="cyan"
+            v-bind="attrs"
+            v-on="on"
+            @click="sendMessage"
+          >
+            <v-icon dark> mdi-pencil </v-icon>
+          </v-btn>
+        </template>
+        <span>送信</span>
+      </v-tooltip>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: 'SendMessage',
   data() {
     return {
-      targetUser: ''
+      targetUser: '',
+      message : null
     }
   },
 
@@ -44,19 +63,33 @@ export default {
     },
   },
 
-  method: {
-    sendMessage(apiKey) {
+  methods: {
+    sendMessage() {
       const headers = {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + apiKey,
+        Authorization: 'Bearer ' + this.envInfo.apiKey,
       }
+      const reqBody = JSON.parse(this.message)
 
       this.$axios
-        .post('/api/v2/bot/message/push', {
+        .post('/api/v2/bot/message/push', reqBody, {
           headers,
         })
-        .then((res) => {})
-        .catch((e) => {})
+        .then((res) => {
+          Swal.fire({
+            icon: 'success',
+            title: '作成完了',
+            text:
+              'メッセージ送信成功',
+          })
+        })
+        .catch((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'メッセージ送信に失敗しました。',
+            text: e,
+          })
+        })
     },
   },
 }

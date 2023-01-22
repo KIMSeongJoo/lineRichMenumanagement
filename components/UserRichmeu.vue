@@ -22,7 +22,7 @@
     </v-col>
     <!-- send button area -->
     <v-col cols="12">
-      <v-btn elevation="2" large depressed color="primary">送信</v-btn>
+      <v-btn elevation="2" large depressed color="primary" @click="setupRichmenu">送信</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -43,7 +43,7 @@ export default {
       return this.$store.state.lines.envInfo
     },
   },
-  method : {
+  methods : {
     setupRichmenu() {
       const headers = {
         'Content-Type': 'application/json',
@@ -53,7 +53,12 @@ export default {
       const url = '/v2/bot/user/' + this.targetUser + '/richmenu/' + this.richmenuId
       this.$axios.post(url, '',{headers})
         .then((res) => {
-
+          Swal.fire({
+            icon: 'success',
+            title: '作成完了',
+            text:
+              'ユーザー設定完了',
+          })
         })
         .catch(({e}) => {
           if (e.response) {

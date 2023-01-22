@@ -25,8 +25,6 @@ export const mutations = {
   },
 
   setupDefaultRichmenu(state, item) {
-    console.log(item)
     state.defaultRichmenu = item
-    console.log(state.defaultRichmenu)
   }
 }

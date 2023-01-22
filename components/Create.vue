@@ -21,19 +21,6 @@
         ></v-file-input>
       </v-col>
 
-      <!-- create env select -->
-      <v-col cols="12">
-        <label><h3>作成環境設定</h3></label>
-        <v-select
-          v-model="envSelected"
-          :items="envList"
-          item-text="envName"
-          item-value="apiKey"
-          label="環境選択"
-          solo
-        ></v-select>
-      </v-col>
-
       <!-- default richmenu checkbox-->
       <v-col cols="12">
         <v-checkbox
@@ -75,7 +62,6 @@ export default {
     return {
       requestBody: null,
       requestImage: null,
-      envSelected: null,
       defaultRichmenu: false,
       envList: [
         {
@@ -89,6 +75,11 @@ export default {
       ],
     }
   },
+  computed: {
+    envInfo() {
+      return this.$store.state.lines.envInfo()
+    }
+  },
   methods: {
     create() {
       if (!this.validator()) {
@@ -97,7 +88,7 @@ export default {
 
       const headers = {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.envSelected,
+        Authorization: 'Bearer ' + this.envInfo.apiKey,
       }
       const reqBody = JSON.parse(this.requestBody)
       // create rich menu
@@ -184,11 +175,6 @@ export default {
         if (fileType !== 'image/png' && fileType !== 'image/jpeg') {
           errMessage = 'イメージは.pngまたは.jpegのみ利用可能です。'
         }
-      }
-
-      // 環境選択
-      if (this.envSelected === '' || this.envSelected === null) {
-        errMessage = '作成環境を選択してください。'
       }
 
       if (errMessage !== '') {

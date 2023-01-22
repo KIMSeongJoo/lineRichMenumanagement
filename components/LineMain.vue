@@ -118,6 +118,10 @@ export default {
     },
   },
   mounted() {
+    if ((this.richmenuList.length) > 0 && (this.defaultRichmenu.length) > 0) {
+      return
+    }
+
     // get list
     const headers = {
       'Content-Type': 'application/json',

@@ -1,9 +1,7 @@
 <template>
   <v-row align="center">
     <v-col cols="6">
-      <v-subheader>
-        操作観葉
-      </v-subheader>
+      <v-subheader> 操作観葉 </v-subheader>
     </v-col>
     <v-col cols="6">
       <v-select
@@ -11,9 +9,9 @@
         :items="envList"
         item-text="envName"
         item-value="apiKey"
-
         label="環境選択"
-        solo></v-select>
+        solo
+      ></v-select>
     </v-col>
     <v-col cols="12">
       <v-tabs>
@@ -37,11 +35,11 @@ import LineMain from '../components/LineMain'
 import Create from '../components/Create'
 import SendMessage from '../components/sendMessage'
 import UserRichmeu from '~/components/UserRichmeu'
-import AnalysisChannel from "~/components/AnalysisChannel";
+import AnalysisChannel from '~/components/AnalysisChannel'
 
 export default {
   name: 'IndexPage',
-  components: {AnalysisChannel, SendMessage, UserRichmeu, LineMain, Create },
+  components: { AnalysisChannel, SendMessage, UserRichmeu, LineMain, Create },
   data() {
     return {
       apiKey: '',
@@ -71,7 +69,7 @@ export default {
   watch: {
     envSelected(after, before) {
       this.setupEnvironmentInfo(after)
-    }
+    },
   },
   mounted() {
     // default 設定
@@ -118,7 +116,7 @@ export default {
           break
         case 'user':
           this.userSetUp = true
-          break;
+          break
         case 'analysis':
           this.analysis = true
       }

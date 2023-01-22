@@ -1,16 +1,16 @@
 export const state = () => ({
   list: [],
   imageList: [],
-  defaultRichmenu : ''
+  defaultRichmenu: '',
 })
 
 export const mutations = {
   setup(state, itemList) {
     const result = []
-    itemList.forEach(function(value){
-      value.image = false;
+    itemList.forEach(function (value) {
+      value.image = false
       result.push(value)
-    });
+    })
     state.list = result
   },
 
@@ -26,5 +26,5 @@ export const mutations = {
 
   setupDefaultRichmenu(state, item) {
     state.defaultRichmenu = item
-  }
+  },
 }

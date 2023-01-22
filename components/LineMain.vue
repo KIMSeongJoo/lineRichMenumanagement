@@ -19,10 +19,7 @@
               <label v-if="item.richMenuId === defaultRichmenu">
                 <v-tooltip bottom>
                   <template #activator="{ on, attrs }">
-                    <v-icon
-                      v-bind="attrs"
-                      v-on="on"
-                    >mdi-bullseye-arrow</v-icon>
+                    <v-icon v-bind="attrs" v-on="on">mdi-bullseye-arrow</v-icon>
                   </template>
                   <span>ディフォルトリッチーメニュー</span>
                 </v-tooltip>
@@ -80,7 +77,7 @@ export default {
     },
     defaultRichmenu() {
       return this.$store.state.richmenu.defaultRichmenu
-    }
+    },
   },
   watch: {
     apiKey(after, before) {
@@ -95,7 +92,7 @@ export default {
           this.$store.commit('richmenu/setup', res.data.richmenus)
           this.imageList = []
         })
-        .catch(e => {
+        .catch((e) => {
           Swal.fire({
             icon: 'error',
             title: 'エラーが発生しました。',
@@ -106,9 +103,12 @@ export default {
       this.$axios
         .get('/v2/bot/user/all/richmenu', { headers })
         .then((res) => {
-          this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
+          this.$store.commit(
+            'richmenu/setupDefaultRichmenu',
+            res.data.richMenuId
+          )
         })
-        .catch(e => {
+        .catch((e) => {
           Swal.fire({
             icon: 'error',
             title: 'エラーが発生しました。',
@@ -118,7 +118,7 @@ export default {
     },
   },
   mounted() {
-    if ((this.richmenuList.length) > 0 && (this.defaultRichmenu.length) > 0) {
+    if (this.richmenuList.length > 0 && this.defaultRichmenu.length > 0) {
       return
     }
 
@@ -132,7 +132,7 @@ export default {
       .then((res) => {
         this.$store.commit('richmenu/setup', res.data.richmenus)
       })
-      .catch(e => {
+      .catch((e) => {
         Swal.fire({
           icon: 'error',
           title: 'エラーが発生しました。',
@@ -146,7 +146,7 @@ export default {
       .then((res) => {
         this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
       })
-      .catch(e => {
+      .catch((e) => {
         Swal.fire({
           icon: 'error',
           title: 'エラーが発生しました。',
@@ -157,7 +157,7 @@ export default {
   methods: {
     getContents(id, idx) {
       // check image list about idx info
-      const obj = this.imageList.find(o => o.id === idx);
+      const obj = this.imageList.find((o) => o.id === idx)
       if (obj !== undefined) {
         return
       }

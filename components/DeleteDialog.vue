@@ -28,7 +28,23 @@
 import Swal from 'sweetalert2'
 export default {
   name: 'DeleteDialog',
-  props: ['itemId', 'apiKey', 'indexId'],
+  props: {
+    itemId: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    apiKey: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    indexId: {
+      type: String,
+      required: true,
+      default: '',
+    },
+  },
   data() {
     return {
       dialog: false,

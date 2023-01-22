@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       targetUser: '',
-      message : null
+      message: null,
     }
   },
 
@@ -79,8 +79,7 @@ export default {
           Swal.fire({
             icon: 'success',
             title: '作成完了',
-            text:
-              'メッセージ送信成功',
+            text: 'メッセージ送信成功',
           })
         })
         .catch((e) => {

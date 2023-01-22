@@ -68,7 +68,7 @@ export default {
   computed: {
     envInfo() {
       return this.$store.state.lines.envInfo()
-    }
+    },
   },
   methods: {
     create() {
@@ -96,8 +96,9 @@ export default {
               headers,
             })
             .then((res) => {
-              if( this.defaultRichmenu === true) {
-                this.$axios.post('v2/bot/user/all/richmenu/' + newId, '', {headers})
+              if (this.defaultRichmenu === true) {
+                this.$axios
+                  .post('v2/bot/user/all/richmenu/' + newId, '', { headers })
                   .then((res) => {
                     Swal.fire({
                       icon: 'success',
@@ -107,7 +108,7 @@ export default {
                         newId,
                     })
                   })
-                  .catch(({e}) => {
+                  .catch(({ e }) => {
                     Swal.fire({
                       icon: 'error',
                       title: 'ディフォルトリッチーメニュー設定に失敗しました。',

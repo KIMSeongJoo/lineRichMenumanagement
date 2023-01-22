@@ -33,7 +33,7 @@
 <script>
 import LineMain from '../components/LineMain'
 import Create from '../components/Create'
-import SendMessage from '../components/sendMessage'
+import SendMessage from '../components/SendMessage'
 import UserRichmeu from '~/components/UserRichmeu'
 import AnalysisChannel from '~/components/AnalysisChannel'
 

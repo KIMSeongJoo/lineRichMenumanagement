@@ -2,7 +2,7 @@
   <v-row>
     <!-- main message area -->
     <v-col cols="12">
-      <label><h3>本文</h3></label>
+      <label lg>本文</label>
       <br />
       <v-textarea
         name="message-body"

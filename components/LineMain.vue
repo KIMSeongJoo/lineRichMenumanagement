@@ -62,10 +62,11 @@
 <script>
 import Swal from 'sweetalert2'
 import DialogComponent from '~/components/Dialog'
+import DeleteDialog from '~/components/DeleteDialog'
 
 export default {
   name: 'LineMain',
-  components: { DialogComponent },
+  components: { DialogComponent, DeleteDialog },
   // eslint-disable-next-line vue/require-prop-types,vue/prop-name-casing
   props: ['apiKey'],
   computed: {
@@ -92,7 +93,7 @@ export default {
           this.$store.commit('richmenu/setup', res.data.richmenus)
           this.imageList = []
         })
-        .catch((e) => {
+        .catch(() => {
           Swal.fire({
             icon: 'error',
             title: 'エラーが発生しました。',
@@ -108,7 +109,7 @@ export default {
             res.data.richMenuId
           )
         })
-        .catch((e) => {
+        .catch(() => {
           Swal.fire({
             icon: 'error',
             title: 'エラーが発生しました。',
@@ -132,7 +133,7 @@ export default {
       .then((res) => {
         this.$store.commit('richmenu/setup', res.data.richmenus)
       })
-      .catch((e) => {
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: 'エラーが発生しました。',
@@ -146,7 +147,7 @@ export default {
       .then((res) => {
         this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
       })
-      .catch((e) => {
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: 'エラーが発生しました。',
@@ -191,7 +192,7 @@ export default {
                 title: 'エラー',
                 text: '該当リッチメニュにはイメージが設定されてません',
                 icon: 'error',
-                confirmButtonText: 'Cool',
+                confirmButtonText: '閉じる',
               })
             }
           } else {
@@ -199,7 +200,7 @@ export default {
               title: 'エラー',
               text: 'イメージを取得する処理でなにか問題が発生しました。',
               icon: 'error',
-              confirmButtonText: 'Cool',
+              confirmButtonText: '閉じる',
             })
           }
         })

@@ -40,9 +40,9 @@ export default {
       default: '',
     },
     indexId: {
-      type: String,
+      type: Number,
       required: true,
-      default: '',
+      default: 0,
     },
   },
   data() {
@@ -64,7 +64,7 @@ export default {
           .delete('/v2/bot/richmenu/' + id, {
             headers,
           })
-          .then((res) => {
+          .then(() => {
             // result
             this.dialog = false
             // 削除成功アラート

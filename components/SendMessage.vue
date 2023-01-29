@@ -19,7 +19,7 @@
         v-model="targetUser"
         :counter="64"
         :rules="rules"
-        label="LINE UID"
+        label="送信ユーザーのLINE UIDを入力"
       ></v-text-field>
     </v-col>
     <!-- send button area -->

@@ -5,6 +5,7 @@
       <label class="text-h4">本文</label>
       <br />
       <v-textarea
+        v-model="message"
         name="message-body"
         filled
         label="message"
@@ -54,7 +55,7 @@ export default {
     return {
       rules: [v => v.length <= 1024 || 'Max 1024 characters'],
       targetUser: '',
-      message: null,
+      message: '',
     }
   },
 
@@ -70,10 +71,18 @@ export default {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + this.envInfo.apiKey,
       }
-      const reqBody = JSON.parse(this.message)
+      const messageList = []
+      messageList.push(JSON.parse(this.message))
+
+      const req = {
+        'to' : this.targetUser,
+        'messages': messageList
+      }
+
+      const reqBody = JSON.parse(JSON.stringify(req))
 
       this.$axios
-        .post('/api/v2/bot/message/push', reqBody, {
+        .post('/v2/bot/message/push', reqBody, {
           headers,
         })
         .then(() => {

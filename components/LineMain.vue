@@ -87,7 +87,6 @@ export default {
     envInfo: {
       deep: true,
       handler() {
-        console.log("call here!")
         // envinfoが更新されたら再度一覧取得
         this.getRichmenuList()
       }

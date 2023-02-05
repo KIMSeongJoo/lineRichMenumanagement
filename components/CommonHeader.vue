@@ -44,7 +44,6 @@ export default {
   },
   watch: {
     envSelected(after, before) {
-      console.log("======= commom header ======= ")
       this.setupEnvironmentInfo(after)
     },
   },

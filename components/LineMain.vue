@@ -80,24 +80,38 @@ export default {
     },
     envInfo() {
       return this.$store.state.lines.envInfo
-      // return this.$store.getters["lines/envInfo"];
     },
   },
   watch: {
     // envinfo 監視
-    envInfo(after) {
-      console.log(after)
-
-      // get list
+    envInfo: {
+      deep: true,
+      handler() {
+        console.log("call here!")
+        // envinfoが更新されたら再度一覧取得
+        this.getRichmenuList()
+      }
+    }
+  },
+  mounted() {
+    // storeに取得履歴がある場合スルー
+    if (this.richmenuList.length > 0 && this.defaultRichmenu.length > 0) {
+      return
+    }
+    // 保存データがからの場合、データ取得
+    this.getRichmenuList()
+  },
+  methods: {
+    getRichmenuList() {
+      // mountページがMountされたら実装
       const headers = {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + after,
+        Authorization: 'Bearer ' + this.envInfo.apiKey,
       }
       this.$axios
         .get('/v2/bot/richmenu/list', { headers })
         .then((res) => {
           this.$store.commit('richmenu/setup', res.data.richmenus)
-          this.imageList = []
         })
         .catch(() => {
           Swal.fire({
@@ -106,14 +120,12 @@ export default {
             text: 'rich menu list 取得失敗',
           })
         })
+
       // get default rich menu
       this.$axios
         .get('/v2/bot/user/all/richmenu', { headers })
         .then((res) => {
-          this.$store.commit(
-            'richmenu/setupDefaultRichmenu',
-            res.data.richMenuId
-          )
+          this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
         })
         .catch(() => {
           Swal.fire({
@@ -123,46 +135,6 @@ export default {
           })
         })
     },
-  },
-  mounted() {
-    // storeに取得履歴がある場合スルー
-    if (this.richmenuList.length > 0 && this.defaultRichmenu.length > 0) {
-      return
-    }
-
-    // mountページがMountされたら実装
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + this.envInfo.apiKey,
-    }
-    this.$axios
-      .get('/v2/bot/richmenu/list', { headers })
-      .then((res) => {
-        this.$store.commit('richmenu/setup', res.data.richmenus)
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: 'error',
-          title: 'エラーが発生しました。',
-          text: 'rich menu list 取得失敗',
-        })
-      })
-
-    // get default rich menu
-    this.$axios
-      .get('/v2/bot/user/all/richmenu', { headers })
-      .then((res) => {
-        this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: 'error',
-          title: 'エラーが発生しました。',
-          text: 'ディフォルトリッチーメニュー取得失敗',
-        })
-      })
-  },
-  methods: {
     getContents(id, idx) {
       // check image list about idx info
       const obj = this.imageList.find((o) => o.id === idx)

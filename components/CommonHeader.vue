@@ -44,6 +44,7 @@ export default {
   },
   watch: {
     envSelected(after, before) {
+      console.log("======= commom header ======= ")
       this.setupEnvironmentInfo(after)
     },
   },
@@ -52,7 +53,7 @@ export default {
       if (name === 'prod') {
         const payload = {
           envName: '本番環境',
-          apiKey: process.env.API_KEY_DEV,
+          apiKey: process.env.API_KEY_PROD,
         }
         this.$store.commit('lines/setEnv', payload)
       } else {

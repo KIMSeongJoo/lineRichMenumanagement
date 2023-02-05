@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="12">
+  <v-col cols="auto" class="pa-0">
     <v-simple-table>
       <template #default>
         <thead>
@@ -9,7 +9,7 @@
             <th>Name</th>
             <th>Json表示</th>
             <th>イメージ</th>
-            <th>Delete</th>
+            <th>削除</th>
           </tr>
         </thead>
         <tbody>

@@ -1,6 +1,10 @@
 <template>
   <v-app dark>
-    <v-app-bar dense max-height="40">
+    <v-app-bar
+      dense
+      elevation="4"
+      color="green"
+    >
       <v-app-bar-title>LINE開発サポート</v-app-bar-title>
     </v-app-bar>
     <v-main>

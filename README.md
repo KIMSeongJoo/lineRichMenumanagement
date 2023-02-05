@@ -6,17 +6,17 @@
 이 부분을 서포팅 하기 위해 해당 웹페이지 제작에 돌입하였다.
 
 ## 설치
+
 1. Github 로 부터 코드를 clone
 2. `yarn install` 을 통해 모듈 설치
 3. `touch .env` 를 통해 환경 변수 파일 설치
-4. 아래 내용을 참고하여 `access token` 을 설정해둘 것
-   5. access token 은 LINE 채널 설정 페이지로 부터 습득 가능함
+4. 아래 내용을 참고하여 `access token` 을 설정해둘 것 5. access token 은 LINE 채널 설정 페이지로 부터 습득 가능함
 
 ```dotenv
 ## develop 환경
 API_KEY_DEV=asdf
 
-## production 환경 
+## production 환경
 API_KEY_PROD=qwer
 ```
 

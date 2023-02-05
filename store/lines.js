@@ -1,7 +1,7 @@
 export const state = () => ({
   envInfo: {
     name: '開発環境',
-    nameKey : 'dev',
+    nameKey: 'dev',
     apiKey: '',
   },
 })

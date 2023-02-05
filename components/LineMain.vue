@@ -89,8 +89,8 @@ export default {
       handler() {
         // envinfoが更新されたら再度一覧取得
         this.getRichmenuList()
-      }
-    }
+      },
+    },
   },
   mounted() {
     // storeに取得履歴がある場合スルー
@@ -124,7 +124,10 @@ export default {
       this.$axios
         .get('/v2/bot/user/all/richmenu', { headers })
         .then((res) => {
-          this.$store.commit('richmenu/setupDefaultRichmenu', res.data.richMenuId)
+          this.$store.commit(
+            'richmenu/setupDefaultRichmenu',
+            res.data.richMenuId
+          )
         })
         .catch(() => {
           Swal.fire({

@@ -1,10 +1,6 @@
 <template>
   <v-app dark>
-    <v-app-bar
-      dense
-      color="green"
-      max-height="50px"
-    >
+    <v-app-bar dense color="green" max-height="50px">
       <v-app-bar-title>LINE開発サポート</v-app-bar-title>
     </v-app-bar>
     <v-main>

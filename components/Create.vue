@@ -64,12 +64,14 @@ export default {
   data() {
     return {
       rules: [
-        v => !!v || '本文は必須です',
-        v => v.length <= 2000 || 'Max 1024 characters'
+        (v) => !!v || '本文は必須です',
+        (v) => v.length <= 2000 || 'Max 1024 characters',
       ],
       lineUIDRules: [
-        v => !!v || 'line uidは必須です',
-        v => (v && v.length <= 64) || 'line uidは最大64文字以内で入力してください。',
+        (v) => !!v || 'line uidは必須です',
+        (v) =>
+          (v && v.length <= 64) ||
+          'line uidは最大64文字以内で入力してください。',
       ],
       requestBody: null,
       requestImage: null,

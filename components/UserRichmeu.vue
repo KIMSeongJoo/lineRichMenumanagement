@@ -1,20 +1,16 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
+  <v-form ref="form" v-model="valid" lazy-validation>
     <v-row>
       <!-- user id field -->
       <v-col cols="12">
-          <label class="text-h4">送信ユーザ</label>
-          <v-text-field
-            v-model="targetUser"
-            :counter="max"
-            :rules="riciMenuRules"
-            label="LINE UID"
-            required
-          ></v-text-field>
+        <label class="text-h4">送信ユーザ</label>
+        <v-text-field
+          v-model="targetUser"
+          :counter="max"
+          :rules="riciMenuRules"
+          label="LINE UID"
+          required
+        ></v-text-field>
       </v-col>
       <!-- rich menu id field -->
       <v-col cols="12">
@@ -52,12 +48,16 @@ export default {
   data() {
     return {
       riciMenuRules: [
-        v => !!v || 'richmenu id は必須です',
-        v => (v && v.length <= 64) || 'richmenu idは最大64文字以内で入力してください。',
+        (v) => !!v || 'richmenu id は必須です',
+        (v) =>
+          (v && v.length <= 64) ||
+          'richmenu idは最大64文字以内で入力してください。',
       ],
       lineUIDRules: [
-        v => !!v || 'line uidは必須です',
-        v => (v && v.length <= 64) || 'line uidは最大64文字以内で入力してください。',
+        (v) => !!v || 'line uidは必須です',
+        (v) =>
+          (v && v.length <= 64) ||
+          'line uidは最大64文字以内で入力してください。',
       ],
       targetUser: '',
       richmenuId: '',
@@ -71,18 +71,18 @@ export default {
     },
   },
   methods: {
-    validate () {
+    validate() {
       this.$refs.form.validate()
       if (this.valid) {
         const params = {
-          'apikey' : this.envInfo.apiKey,
-          'uid' : this.targetUser,
-          'ricimenuId' : this.richmenuId,
+          apikey: this.envInfo.apiKey,
+          uid: this.targetUser,
+          ricimenuId: this.richmenuId,
         }
         this.setupRichmenu(params)
       }
     },
-    setupRichmenu : async (params) => {
+    setupRichmenu: async (params) => {
       const headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + params.apikey,
@@ -92,15 +92,13 @@ export default {
         '/v2/bot/user/' + params.uid + '/richmenu/' + params.ricimenuId
 
       try {
-        await axios
-          .post(url, '', { headers })
-          .then(() => {
-            Swal.fire({
-              icon: 'success',
-              title: '作成完了',
-              text: 'ユーザー設定完了',
-            })
+        await axios.post(url, '', { headers }).then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: '作成完了',
+            text: 'ユーザー設定完了',
           })
+        })
       } catch (e) {
         Swal.fire({
           icon: 'error',
@@ -108,7 +106,7 @@ export default {
           text: e.response.statusText,
         })
       }
-    }
+    },
   },
 }
 </script>

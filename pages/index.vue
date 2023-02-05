@@ -25,11 +25,18 @@ import Create from '../components/Create'
 import SendMessage from '../components/SendMessage'
 import UserRichmeu from '~/components/UserRichmeu'
 import AnalysisChannel from '~/components/AnalysisChannel'
-import CommonHeader from "~/components/CommonHeader.vue";
+import CommonHeader from '~/components/CommonHeader.vue'
 
 export default {
   name: 'IndexPage',
-  components: {CommonHeader, AnalysisChannel, SendMessage, UserRichmeu, LineMain, Create },
+  components: {
+    CommonHeader,
+    AnalysisChannel,
+    SendMessage,
+    UserRichmeu,
+    LineMain,
+    Create,
+  },
   data() {
     return {
       listDisplay: false,

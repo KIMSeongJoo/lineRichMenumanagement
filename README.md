@@ -25,7 +25,8 @@ API_KEY_PROD=qwer
 - Nuxt.js
 - Vue.js
 - Vuetify
-- line API
+- eslint
+- LINE develop api(message)
 
 ## 기능
 
@@ -33,9 +34,12 @@ API_KEY_PROD=qwer
   - 리스트업,
   - 신규 작성
   - 메뉴 삭제
-  - 유저 연동(구현 예정)
-  - 기본 리치메뉴 설정(구현 예정)
+  - 유저 연동
+  - 기본 리치메뉴 설정(부분 구현 완료)
+  - 베이식 validate 이외 LINE 에서 제공하는 validate api call (예정) 
 - 메시지 관련
-  - 유저에게 메시지 PUSH (구현 예정)
+  - 유저에게 메시지 PUSH
 - 채널 관련
   - 다양한 통계지표 제공 (아카운트 매니저 에선 확인하기 어려운 내용들)(구현 예정)
+- 애플리케이션 관련
+  - UI 언어 변경 기능(검토중)

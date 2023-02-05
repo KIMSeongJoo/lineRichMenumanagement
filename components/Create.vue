@@ -2,13 +2,16 @@
   <v-row text-center>
     <v-col cols="12">
       <!-- textarea -->
-      <v-col cols="12">
+      <v-col cols="auto" class="pa-2">
         <label class="text-h4">本文</label>
         <v-textarea
           v-model="requestBody"
           filled
           label="json"
           auto-grow
+          outlined
+          rules="rules"
+          :counter="4000"
         ></v-textarea>
       </v-col>
 
@@ -60,6 +63,14 @@ export default {
   name: 'CreateLichMenu',
   data() {
     return {
+      rules: [
+        v => !!v || '本文は必須です',
+        v => v.length <= 2000 || 'Max 1024 characters'
+      ],
+      lineUIDRules: [
+        v => !!v || 'line uidは必須です',
+        v => (v && v.length <= 64) || 'line uidは最大64文字以内で入力してください。',
+      ],
       requestBody: null,
       requestImage: null,
       defaultRichmenu: false,

@@ -3,13 +3,16 @@
     <!-- main message area -->
     <v-col cols="12">
       <label class="text-h4">本文</label>
-      <br />
+      <v-divider class="pa-4"></v-divider>
       <v-textarea
         v-model="message"
         name="message-body"
         filled
         label="message"
         auto-grow
+        :rules="rules"
+        outlined
+        :counter="2000"
         value="json形でメッセージを入れてください"
       ></v-textarea>
     </v-col>
@@ -19,7 +22,7 @@
       <v-text-field
         v-model="targetUser"
         :counter="64"
-        :rules="rules"
+        :rules="lineUIDRules"
         label="送信ユーザーのLINE UIDを入力"
       ></v-text-field>
     </v-col>
@@ -53,7 +56,14 @@ export default {
   name: 'SendMessage',
   data() {
     return {
-      rules: [v => v.length <= 1024 || 'Max 1024 characters'],
+      rules: [
+        v => !!v || '本文は必須です',
+        v => v.length <= 2000 || 'Max 1024 characters'
+      ],
+      lineUIDRules: [
+        v => !!v || 'line uidは必須です',
+        v => (v && v.length <= 64) || 'line uidは最大64文字以内で入力してください。',
+      ],
       targetUser: '',
       message: '',
     }
@@ -66,7 +76,34 @@ export default {
   },
 
   methods: {
+    validator() {
+      let errMessage = ''
+      if (this.requestBody === '' || this.requestBody === null) {
+        errMessage = 'json本文を入力してください'
+      } else {
+        try {
+          JSON.parse(this.requestBody)
+        } catch (err) {
+          errMessage = '正しいJsonを入力してください。'
+        }
+      }
+
+      if (errMessage !== '') {
+        SweetAlert.fire({
+          icon: 'error',
+          title: 'エラーが発生しました。',
+          text: errMessage,
+        })
+        return false
+      }
+
+      return true
+    },
     sendMessage() {
+      if (!this.validator()) {
+        return false
+      }
+
       const headers = {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + this.envInfo.apiKey,

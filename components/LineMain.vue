@@ -49,7 +49,7 @@
               <DeleteDialog
                 :item-id="item.richMenuId"
                 :index-id="idx"
-                :api-key="apiKey"
+                :api-key="envInfo.apiKey"
               />
             </td>
           </tr>
@@ -68,7 +68,6 @@ export default {
   name: 'LineMain',
   components: { DialogComponent, DeleteDialog },
   // eslint-disable-next-line vue/require-prop-types,vue/prop-name-casing
-  props: ['apiKey'],
   computed: {
     richmenuList() {
       return this.$store.state.richmenu.list
@@ -79,13 +78,20 @@ export default {
     defaultRichmenu() {
       return this.$store.state.richmenu.defaultRichmenu
     },
+    envInfo() {
+      return this.$store.state.lines.envInfo
+      // return this.$store.getters["lines/envInfo"];
+    },
   },
   watch: {
-    apiKey(after, before) {
+    // envinfo 監視
+    envInfo(after) {
+      console.log(after)
+
       // get list
       const headers = {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + before,
+        Authorization: 'Bearer ' + after,
       }
       this.$axios
         .get('/v2/bot/richmenu/list', { headers })
@@ -119,14 +125,15 @@ export default {
     },
   },
   mounted() {
+    // storeに取得履歴がある場合スルー
     if (this.richmenuList.length > 0 && this.defaultRichmenu.length > 0) {
       return
     }
 
-    // get list
+    // mountページがMountされたら実装
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + this.apiKey,
+      Authorization: 'Bearer ' + this.envInfo.apiKey,
     }
     this.$axios
       .get('/v2/bot/richmenu/list', { headers })
@@ -165,7 +172,7 @@ export default {
       // header set up
       const headers = {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.apiKey,
+        Authorization: 'Bearer ' + this.envInfo.apiKey,
       }
       this.$axios
         .get('/api/v2/bot/richmenu/' + id + '/content', {

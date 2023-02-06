@@ -4,13 +4,14 @@
       <!-- textarea -->
       <v-col cols="auto" class="pa-2">
         <label class="text-h4">本文</label>
+        <v-divider class="pa-2"></v-divider>
         <v-textarea
           v-model="requestBody"
           filled
           label="json"
           auto-grow
           outlined
-          rules="rules"
+          :rules="rules"
           :counter="4000"
         ></v-textarea>
       </v-col>
@@ -60,18 +61,13 @@
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'CreateLichMenu',
+  name: 'CreateRichMenu',
   data() {
     return {
       rules: [
         (v) => !!v || '本文は必須です',
-        (v) => v.length <= 2000 || 'Max 1024 characters',
-      ],
-      lineUIDRules: [
-        (v) => !!v || 'line uidは必須です',
         (v) =>
-          (v && v.length <= 64) ||
-          'line uidは最大64文字以内で入力してください。',
+          (v && v.length <= 4000) || 'Max 4000 characters',
       ],
       requestBody: null,
       requestImage: null,

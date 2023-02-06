@@ -1,6 +1,6 @@
 <template>
   <v-row justify="space-between" class="d-flex align-center">
-    <v-col cols="12">
+    <v-col cols="10">
       <v-select
         v-model="envSelected"
         class="pa-4"

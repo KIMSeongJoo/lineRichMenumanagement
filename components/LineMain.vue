@@ -8,6 +8,7 @@
             <th class="text-left">Richmenu ID</th>
             <th>Name</th>
             <th>Json表示</th>
+            <th>設定</th>
             <th>イメージ</th>
             <th>削除</th>
           </tr>
@@ -28,6 +29,12 @@
             </td>
             <td>{{ item.name }}</td>
             <td><DialogComponent :json-detail="item" /></td>
+            <td>
+              <DefaultRichmenu
+                :apiKey="envInfo.apiKey"
+                :itemId="item.richMenuId"
+                />
+            </td>
             <td>
               <v-btn
                 v-if="item.image === false"
@@ -63,10 +70,11 @@
 import Swal from 'sweetalert2'
 import DialogComponent from '~/components/Dialog'
 import DeleteDialog from '~/components/DeleteDialog'
+import DefaultRichmenu from "~/components/DefaultRichmenu.vue";
 
 export default {
   name: 'LineMain',
-  components: { DialogComponent, DeleteDialog },
+  components: {DefaultRichmenu, DialogComponent, DeleteDialog },
   // eslint-disable-next-line vue/require-prop-types,vue/prop-name-casing
   computed: {
     richmenuList() {

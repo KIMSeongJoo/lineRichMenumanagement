@@ -4,7 +4,7 @@
       <v-app-bar-title>LINE開発サポート</v-app-bar-title>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container class="ma-4" fluid>
         <Nuxt />
       </v-container>
     </v-main>

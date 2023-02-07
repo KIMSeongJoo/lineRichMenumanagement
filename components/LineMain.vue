@@ -31,8 +31,9 @@
             <td><DialogComponent :json-detail="item" /></td>
             <td>
               <DefaultRichmenu
-                :apiKey="envInfo.apiKey"
-                :itemId="item.richMenuId"
+                :api-key="envInfo.apiKey"
+                :item-id="item.richMenuId"
+                :btn-display="item.richMenuId === defaultRichmenu"
                 />
             </td>
             <td>

@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="290">
       <template #activator="{ on, attrs }">
-        <v-btn color="success" dark v-bind="attrs" v-on="on"> Defaultに設定 </v-btn>
+        <v-btn color="success" dark v-bind="attrs" v-on="on" :disabled="btnDisplay"> Defaultに設定 </v-btn>
       </template>
       <v-card>
         <v-card-title class="text-h5"> ディフォルトリッチーメニューとして設定 </v-card-title>
@@ -39,6 +39,11 @@ export default {
       type: String,
       required: true,
       default: '',
+    },
+    btnDisplay: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   data() {

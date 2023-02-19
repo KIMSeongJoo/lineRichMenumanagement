@@ -1,7 +1,7 @@
 <template>
   <v-row align="center">
     <CommonHeader />
-    <v-col cols="auto" class="pa-0">
+    <v-col cols="12" class="pa-0">
       <v-tabs cols="auto" class="pa-0">
         <v-tab @click="showPage('list')">リッチメニュー</v-tab>
         <v-tab @click="showPage('create')">新規作成</v-tab>

@@ -1,7 +1,7 @@
 <template>
   <v-row justify="space-around">
     <v-col cols="auto">
-      <v-dialog transition="dialog-bottom-transition" max-width="600">
+      <v-dialog transition="dialog-bottom-transition" max-width="1000px">
         <template #activator="{ on, attrs }">
           <v-btn color="primary" v-bind="attrs" v-on="on"> Json </v-btn>
         </template>
@@ -11,7 +11,7 @@
             <v-card-text>
               <div class="pa-12">
                 <pre>
-                  {{ jsonDetail }}
+                  {{JSON.stringify(jsonDetail, undefined, 2)}}
                 </pre>
               </div>
             </v-card-text>
@@ -26,11 +26,22 @@
 </template>
 
 <script>
+import 'vue-json-pretty/lib/styles.css';
+
 export default {
   name: 'DialogComponent',
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['jsonDetail'],
+  props: {
+    jsonDetail: {
+      type: Object,
+      required: true,
+      default: Object
+    }
+  },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+pre {
+  word-break:break-all
+}
+</style>

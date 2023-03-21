@@ -9,6 +9,7 @@ export const mutations = {
     const result = []
     itemList.forEach(function (value) {
       value.image = false
+      value.useage = false
       result.push(value)
     })
     state.list = result

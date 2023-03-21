@@ -1,5 +1,14 @@
 <template>
   <v-col cols="auto" class="pa-0">
+    <v-btn
+      color="secondary"
+      elevation="12"
+      >
+      利用状態確認
+    </v-btn>
+    <div style="margin:10px;">
+      <v-divider />
+    </div>
     <v-simple-table>
       <template #default>
         <thead>
@@ -202,4 +211,5 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

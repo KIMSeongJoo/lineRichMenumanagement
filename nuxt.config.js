@@ -92,4 +92,11 @@ export default {
     ApikeyDev: process.env.API_KEY_DEV,
     ApikeyProd: process.env.API_KEY_PROD,
   },
+
+  watchers: {
+    webpack: {
+      aggregateTimeout: 300,
+      poll: 1000
+    }
+  }
 }
